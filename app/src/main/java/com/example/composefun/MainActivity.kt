@@ -2,6 +2,7 @@ package com.example.composefun
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeFunTheme {
-                MyApp()
+                HelloScreen()
             }
         }
     }
@@ -120,6 +124,53 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun HelloScreen() {
+    var name by rememberSaveable { mutableStateOf("") }
+
+    Column {
+        HelloContent(name = name, onNameChange = { name = it })
+        HelloContent2(name = name, onNameChange = { name = it })
+    }
+    Log.i("MainActivity::HelloScreen -> ", name)
+}
+
+@Composable
+fun HelloContent(name: String, onNameChange: (String) -> Unit) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = "Hello, $name",
+            modifier = Modifier.padding(bottom = 8.dp),
+            style = MaterialTheme.typography.bodyLarge
+        )
+        OutlinedTextField(
+            value = name,
+            onValueChange = onNameChange,
+            label = { Text("Name") },
+        )
+    }
+    Log.i("MainActivity::HelloContent -> ", name)
+}
+
+@Composable
+fun HelloContent2(name: String, onNameChange: (String) -> Unit) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = "Hello, $name",
+            modifier = Modifier
+                .padding(bottom = 8.dp),
+            color = Color.Black,
+            style = MaterialTheme.typography.bodyLarge
+        )
+        OutlinedTextField(
+            value = name,
+            onValueChange = onNameChange,
+            label = { Text("Name") }
+        )
+    }
+    Log.i("MainActivity::HelloContent2 -> ", name)
+}
+
 @Preview(
     showBackground = true,
     widthDp = 320,
@@ -129,6 +180,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ComposeFunTheme {
-        MyApp()
+        HelloScreen()
     }
 }
