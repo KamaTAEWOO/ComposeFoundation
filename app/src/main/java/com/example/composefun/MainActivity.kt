@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,9 +43,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeFunTheme {
-                HelloScreen()
+                SurfaceExample()
             }
         }
+    }
+}
+
+@Composable
+fun SurfaceExample() {
+    // Surface 외부
+    // Text 내부
+    Surface(
+        modifier = Modifier
+            .background(Color.White)
+            .padding(10.dp)
+    ) {
+        Text(
+            text = "태우",
+            color = Color.Blue,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(20.dp)
+        )
     }
 }
 
@@ -180,6 +199,6 @@ fun HelloContent2(name: String, onNameChange: (String) -> Unit) {
 @Composable
 fun GreetingPreview() {
     ComposeFunTheme {
-        HelloScreen()
+        SurfaceExample()
     }
 }
