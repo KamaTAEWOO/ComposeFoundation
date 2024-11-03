@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ComposeFun"
 include(":app")
+include(":composefunc")
